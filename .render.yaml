@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: workshop-backend
+    env: node
+    repo: https://github.com/SmokeHound/workshop-backend
+    branch: main
+    buildCommand: npm install
+    startCommand: node index.js
+    autoDeploy: true
