@@ -22,6 +22,17 @@ router.get('/items', (_, res) => {
   res.json(require('../items.json'));
 });
 
+router.post('/items', (req, res) => {
+  const { name, price } = req.body;
+  if (!name || typeof price !== 'number') {
+    return res.status(400).json({ error: 'Invalid data' });
+  }
+  db.query('INSERT INTO items (name, price) VALUES ($1, $2)', [name, price], err => {
+    if (err) return res.status(500).json({ error: 'Insert failed' });
+    res.status(200).json({ success: true });
+  });
+});
+
 router.get('/history', (_, res) => {
   orders.getHistory((err, rows) => res.json(rows));
 });
